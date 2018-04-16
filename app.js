@@ -117,11 +117,12 @@ class Game {
 }
 
 const game = new Game()
+
 const btn = document.getElementsByClassName('btn-start')
-btn.addEventListener('touch', play, false)
+
+btn.addEventListener('touchstart', () => play())
 
 function play() {
-  console.log(list2)
   game.start()
 
   const guessedWord = document.getElementById('guessed-word')
