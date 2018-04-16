@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#305744">
+</head>
+<body>
+  <header>
+    <h1 class="header-title">Word Race</h1>
+    <button id="btnPlay">Start</button>
+  </header>
+  <main class="container">
+    <div class="intro">
+      <p>The game is very easy. We'll give you a word in english and you have to write the right translation in portuguese.</p>
+      <p>You have 10 seconds to give the right answer.</p>
+      <p>You can only go to the next level after you get all words right</p>
+      <button class="btn-start" onclick="play()">I'm ready!</button>
+    </div>
+
+    <div id="game"class="timer-wrapper">
+      <p id="timer">10</p>
+    </div>
+    <div class="word-wrapper"><p id="word"></p></div>
+    <input type="text" id="guessed-word" autofocus autocomplete="off">
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

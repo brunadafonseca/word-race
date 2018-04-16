@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Walter Turncoat';
+  src: url('../fonts/WalterTurncoat-Regular.ttf');
+}
+
+:root {
+  --chalkboard: #305744;
+  --bold-yellow: #FEC62E;
+}
+
+body {
+  background-color: var(--chalkboard);
+  color: #fff;
+  font-family: 'Walter Turncoat', 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 1px 10px #101613;
+  padding: 0 1em;
+}
+
+.header-title {
+  font-size: 1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.container {
+  text-align: center;
+  display: inline-block;
+  padding: 2em;
+}
+
+input, 
+button {
+  font-family: inherit;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+  
+button:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+button:hover {
+  background-color: var(--bold-yellow);
+  cursor: pointer;
+}
+
+#guessed-word {
+  background-color: var(--chalkboard);
+  border: none;
+  border-bottom: 2px solid #fff;
+  padding: 1em;
+  margin-top: 2em;
+  color: #fff;
+}
+
+#guessed-word.wrong {
+  border-color: red;
+}
+
+.word-wrapper {
+  height: 3em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+#word {
+  font-size: 3em;
+}
+
+.btn-start {
+  padding: 1em 2em;
+  background-color: var(--chalkboard);
+  border: 2px solid var(--bold-yellow);
+  color: #fff;
+  margin-top: 2em;
+  text-transform: uppercase;
+} 
+
+.timer-wrapper {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: var(--bold-yellow);
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 2em;
+}
+
+#timer {
+  margin: 0;
+  font-size: 3.2em;
+}

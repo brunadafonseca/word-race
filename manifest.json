@@ -1,0 +1,28 @@
+{
+  "name": "Word Race",
+  "short_name": "Word Race",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#305744",
+  "theme_color": "#305744",
+  "icons": [
+    {
+      "src": "assets/images/racing-flag-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/racing-flag-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/racing-flag-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "service-worker.js": "service-worker.js",
+  "app.js": "app.js",
+  "index.html": "index.html"
+}
