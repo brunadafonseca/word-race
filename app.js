@@ -1,9 +1,13 @@
-// if ('serviceWorker' in navigator) {
-//   console.log('serviceworker in navigator')
-//   navigator.serviceWorker
-//            .register('service-worker.js')
-//            .then(() => { console.log('Service Worker Registered') })
-//            .catch((err) => { console.log(err.message) })
+if ('serviceWorker' in navigator) {
+  console.log('serviceworker in navigator')
+  navigator.serviceWorker
+           .register('service-worker.js')
+           .then(() => { console.log('Service Worker Registered') })
+           .catch((err) => { console.log(err.message) })
+}
+
+// if ('PushManager' in window ) {
+//   window.alert('push manager in window xD')
 // }
 
 const list = [
@@ -39,13 +43,13 @@ const list = [
 const newGame = {
   points: 0,
   wordList: list,
-  duration: 10,
-  seconds: 10,
+  duration: 5,
+  seconds: 5,
   word: null,
   timerThread: null,
 }
 
-let game = newGame
+let game = { ...newGame }
 
 function setNewWord() {
   const index = Math.floor(Math.random()*game.wordList.length)
@@ -64,10 +68,6 @@ function setNewWord() {
   btns[0].setAttribute('value', options[0])
   btns[1].setAttribute('value', options[1])
   btns[2].setAttribute('value', options[2])
-
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => checkWord(btn), false)
-  })
 }
 
 function startTimer() {
@@ -82,11 +82,13 @@ function timer() {
   document.getElementById('timer').innerHTML = game.seconds;
 }
 
-function checkWord(btn) {
-  if (game.word.pt === btn.value.toString()) {
+function checkWord(el) {
+  el.classList.add('active')
+  if (game.word.pt === el.value.toString()) {
     game.points = game.points + 1
   }
 
+  el.classList.remove('active')
   start()
 }
 
@@ -98,12 +100,21 @@ function setTimer() {
 function start() {
   console.log(game.wordList)
   clearInterval(game.timerThread)
+  
+  if (!game.wordList.length) {
+    if (isWinner()) {
+      return window.alert('you won! your score is: ', + game.points)
+    }
+  } 
+  
+  console.log('hi')
+  setTimer()
+  setNewWord()
+  startTimer()
+}
 
-  if (!isWinner()) {
-    setTimer()
-    setNewWord()
-    startTimer()
-  }
+function createNewDiv() {
+  return `<div class="test"></div>`
 }
 
 function isWinner() {
@@ -112,7 +123,12 @@ function isWinner() {
 
 // user related
 
-let user = getUser() || {}
+let user = getUser() || null
+if (!!user) {
+  const p = document.createElement('p')
+  p.innerHTML = user.name
+  document.getElementById('profile').appendChild(p)
+}
 
 function registerUser(e) {
   localStorage.removeItem('WordRaceUser')
@@ -124,6 +140,7 @@ function registerUser(e) {
 function updateUserLevel(l) {
   user.level = l
   const updatedUser = JSON.stringify(user)
+  
   localStorage.setItem('WordRaceUser', updatedUser)
 }
 
@@ -134,10 +151,12 @@ function getUser() {
 const name = document.getElementById('name')
 name.addEventListener('keypress', (e) => {
   const key = e.which || e.keyCode
+  
   if (key === 13) {
     registerUser(e)
     addClass('intro', 'hide')
     removeClass('game', 'hide')
+    game = { ...newGame }
     start()
   }
 })
@@ -151,6 +170,20 @@ function removeClass(id, oldClass) {
   const element = document.getElementById(id)
   element.classList.remove(oldClass)
 }
+
+// const btns = document.querySelectorAll('.word-option').forEach(btn => {
+//   btn.addEventListener('touchend', fix)
+// })
+
+// function fix() {
+//     var el = this;
+//     var par = el.parentNode;
+//     var next = el.nextSibling;
+//     window.alert(el)
+//     par.removeChild(el);
+//     setTimeout(function() {par.insertBefore(el, next);}, 0)
+// }
+
 
 // const btn = document.getElementsByClassName('btn-start')
 // btn.addEventListener('touchstart', play)

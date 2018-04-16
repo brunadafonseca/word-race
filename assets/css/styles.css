@@ -36,7 +36,9 @@ header {
   flex-direction: column;
   align-items: center;
   padding: 2em;
+  position: relative;
 }
+
 
 input, 
 button {
@@ -44,18 +46,29 @@ button {
   font-size: 100%;
   box-sizing: border-box;
 }
+
+button {
+  padding: 1em 2em;
+  background-color: var(--chalkboard);
+  border: 2px solid var(--bold-yellow);
+  color: #fff;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
   
 button:focus {
   outline: none;
 }
 
-input:focus {
-  outline: none;
+@media (hover: hover) {
+  button:hover {
+    background-color: var(--bold-yellow);
+    cursor: pointer;
+  }
 }
 
-button:hover {
-  background-color: var(--bold-yellow);
-  cursor: pointer;
+input:focus {
+  outline: none;
 }
 
 input {
@@ -65,10 +78,6 @@ input {
   padding: 1em;
   margin-top: 2em;
   color: #fff;
-}
-
-#guessed-word.wrong {
-  border-color: red;
 }
 
 .word-wrapper {
@@ -83,16 +92,6 @@ input {
 #word {
   font-size: 3em;
 }
-
-button {
-  padding: 1em 2em;
-  background-color: var(--chalkboard);
-  border: 2px solid var(--bold-yellow);
-  color: #fff;
-  margin-top: 2em;
-  text-transform: uppercase;
-  -webkit-tap-highlight-color: red;
-} 
 
 .timer-wrapper {
   width: 3em;
@@ -113,18 +112,20 @@ button {
 }
 
 .hide {
-  height: 0;
-  display: none;
+  visibility: hidden;
 }
 
-label,
-#intro > p,
-#timer,
-#word {
+* {
   user-select: none;
 }
 
-.word-options {
+.word-option {
   display: block;
   width: 100%;
+}
+
+.active {
+  top: 0;
+  left: 0;
+  transition: all 500ms ease-in-out;
 }

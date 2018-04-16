@@ -11,12 +11,12 @@
 <body>
   <header>
     <h1 class="header-title">Word Race</h1>
-    <!-- <button id="btnPlay">MENU</button> -->
+    <div id="profile"></div>
   </header>
   <main class="container">
-    <section id="intro">
+    <section id="intro" class="active">
       <p>The game is very easy. We'll give you a word in english and you have to write the right translation in portuguese.</p>
-      <p>You have 10 seconds to give the right answer.</p>
+      <p>You have 5 seconds to give the right answer.</p>
       <p>You can only go to the next level after you get all words right</p>
       <label for="name">How would you like to be called?</label>
       <input type="text" id="name" autofocus>
@@ -29,14 +29,15 @@
       </div>
       
       <div class="word-wrapper"><p id="word"></p></div>
-      <!-- <div id="options">
-        <button class="word-option" onclick="checkWord()"></button>
-        <button class="word-option" onclick="checkWord()"></button>
-        <button class="word-option" onclick="checkWord()"></button>
-      </div> -->
-      <input type="text" id="guessed-word" autocomplete="off">
+      <div id="options">
+        <button class="word-option" onclick="checkWord(this)"></button>
+        <button class="word-option" onclick="checkWord(this)"></button>
+        <button class="word-option" onclick="checkWord(this)"></button>
+      </div>
+      <div id="test"></div>
+      <!-- <input type="text" id="guessed-word" autocomplete="off"> -->
     </section>
   </main>
-  <script src="./scripts/game.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
