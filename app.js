@@ -117,6 +117,8 @@ class Game {
 }
 
 const game = new Game()
+const btn = document.getElementsByClassName('btn-start')
+btn.addEventListener('touch', play, false)
 
 function play() {
   console.log(list2)
