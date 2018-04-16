@@ -1,10 +1,10 @@
-// if ('serviceWorker' in navigator) {
-//   console.log('serviceworker in navigator')
-//   navigator.serviceWorker
-//            .register('service-worker.js')
-//            .then(() => { console.log('Service Worker Registered') })
-//            .catch((err) => { console.log(err.message) })
-// }
+if ('serviceWorker' in navigator) {
+  console.log('serviceworker in navigator')
+  navigator.serviceWorker
+           .register('service-worker.js')
+           .then(() => { console.log('Service Worker Registered') })
+           .catch((err) => { console.log(err.message) })
+}
 
 const list = [
   {
