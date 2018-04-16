@@ -52,8 +52,8 @@ const list = [
 const newGame = {
   points: 0,
   wordList: list,
-  duration: 1,
-  seconds: 1,
+  duration: 10,
+  seconds: 10,
   word: null,
   timerThread: null,
 }
