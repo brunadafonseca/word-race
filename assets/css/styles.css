@@ -32,7 +32,9 @@ header {
 
 .container {
   text-align: center;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2em;
 }
 
@@ -56,7 +58,7 @@ button:hover {
   cursor: pointer;
 }
 
-#guessed-word {
+input {
   background-color: var(--chalkboard);
   border: none;
   border-bottom: 2px solid #fff;
@@ -82,13 +84,14 @@ button:hover {
   font-size: 3em;
 }
 
-.btn-start {
+button {
   padding: 1em 2em;
   background-color: var(--chalkboard);
   border: 2px solid var(--bold-yellow);
   color: #fff;
   margin-top: 2em;
   text-transform: uppercase;
+  -webkit-tap-highlight-color: red;
 } 
 
 .timer-wrapper {
@@ -107,4 +110,21 @@ button:hover {
 #timer {
   margin: 0;
   font-size: 3.2em;
+}
+
+.hide {
+  height: 0;
+  display: none;
+}
+
+label,
+#intro > p,
+#timer,
+#word {
+  user-select: none;
+}
+
+.word-options {
+  display: block;
+  width: 100%;
 }

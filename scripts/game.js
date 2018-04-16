@@ -9,38 +9,51 @@
 const list = [
   {
     en: "one",
-    pt: "um",
-    options: [
-      "sete",
-      "um",
-      "quatro"
-    ]
+    pt: "um"
   },
   {
     en: "two",
-    pt: "dois",
-    options: [
-      "dois",
-      "um",
-      "quatro"
-    ]
+    pt: "dois"
   },
   {
     en: "three",
-    pt: "tres",
-    options: [
-      "tres",
-      "um",
-      "quatro"
-    ]
+    pt: "tres"
+  },
+  {
+    en: "four",
+    pt: "quatro"
+  },
+  {
+    en: "five",
+    pt: "cinco"
+  },
+  {
+    en: "six",
+    pt: "seis"
+  },
+  {
+    en: "seven",
+    pt: "sete"
+  },
+  {
+    en: "eight",
+    pt: "oito"
+  },
+  {
+    en: "nine",
+    pt: "nove"
+  },
+  {
+    en: "ten",
+    pt: "dez"
   }
 ]
 
 const newGame = {
   points: 0,
   wordList: list,
-  duration: 10,
-  seconds: 10,
+  duration: 1,
+  seconds: 1,
   word: null,
   timerThread: null,
 }
@@ -50,24 +63,10 @@ let game = newGame
 function setNewWord() {
   const index = Math.floor(Math.random()*game.wordList.length)
   game.word = game.wordList[index]
-  console.log('test')
   game.wordList = game.wordList.filter(word => word !== game.word)
-
+  
   const p = document.getElementById('word')
   p.innerHTML = game.word.en
-
-  const options = game.word.options
-  const btns = document.querySelectorAll('.word-option')
-  btns[0].innerHTML = options[0]
-  btns[1].innerHTML = options[1]
-  btns[2].innerHTML = options[2]
-  btns[0].setAttribute('value', options[0])
-  btns[1].setAttribute('value', options[1])
-  btns[2].setAttribute('value', options[2])
-
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => checkWord(btn), false)
-  })
 }
 
 function startTimer() {
@@ -82,12 +81,18 @@ function timer() {
   document.getElementById('timer').innerHTML = game.seconds;
 }
 
-function checkWord(btn) {
-  if (game.word.pt === btn.value.toString()) {
+function checkWord(e) {
+  if (game.word.pt === e.target.value.trim().toLowerCase()) {
     game.points = game.points + 1
+    e.target.value = ''
+    e.target.classList.remove('wrong')
+    
+    
+
+    return start()
   }
 
-  start()
+  e.target.classList.add('wrong')
 }
 
 function setTimer() {
@@ -96,10 +101,22 @@ function setTimer() {
 }
 
 function start() {
-  console.log(game.wordList)
   clearInterval(game.timerThread)
 
-  if (!isWinner()) {
+  if (!game.wordList.length) {
+    if (isWinner()) {
+      updateUserLevel("intermediary")
+      console.log('winner')
+      
+      return window.alert('Points: ' + game.points)
+    }
+
+    if (window.confirm('You lost. Play again?')) {
+      game.wordList = list
+      game.points = 0
+      start()
+    }
+  } else {
     setTimer()
     setNewWord()
     startTimer()
@@ -109,8 +126,6 @@ function start() {
 function isWinner() {
   return game.points === list.length
 }
-
-// user related
 
 let user = getUser() || {}
 
@@ -136,36 +151,27 @@ name.addEventListener('keypress', (e) => {
   const key = e.which || e.keyCode
   if (key === 13) {
     registerUser(e)
-    addClass('intro', 'hide')
-    removeClass('game', 'hide')
-    start()
+    const intro = document.getElementById('intro')
+    intro.classList.add('hide')
+    const gameWrapper = document.getElementById('game')
+    gameWrapper.classList.remove('hide')
+    document.getElementById('guessed-word').focus()
+    play()
   }
 })
 
-function addClass(id, newClass) {
-  const element = document.getElementById(id)
-  element.classList.add(newClass)
+const btn = document.getElementsByClassName('btn-start')
+btn.addEventListener('touchstart', play)
+
+function play() {
+  start()
+
+  const guessedWord = document.getElementById('guessed-word')
+  guessedWord.addEventListener('keypress', (e) => {
+    const key = e.which || e.keyCode
+    if (key === 13) {
+      checkWord(e)
+    }
+  })
 }
-
-function removeClass(id, oldClass) {
-  const element = document.getElementById(id)
-  element.classList.remove(oldClass)
-}
-
-// const btn = document.getElementsByClassName('btn-start')
-// btn.addEventListener('touchstart', play)
-
-// function play() {
-//   start()
-  
-
-  // const guessedWord = document.getElementById('guessed-word')
-  // guessedWord.addEventListener('keypress', (e) => {
-  //     const key = e.which || e.keyCode
-  //     if (key === 13) {
-  //       checkWord(e)
-  //   }
-  // })
-// }
-
 
