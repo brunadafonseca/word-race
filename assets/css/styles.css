@@ -5,7 +5,11 @@
 
 :root {
   --chalkboard: #305744;
-  --bold-yellow: #FEC62E;
+  --yellow: #FEC62E;
+  --blue: #22C5FC;
+  --pink: #EF476F;
+  --dark-blue: #26547C;
+  --green: #06D6A0;
 }
 
 body {
@@ -39,18 +43,19 @@ header {
   position: relative;
 }
 
-
 input, 
 button {
   font-family: inherit;
   font-size: 100%;
   box-sizing: border-box;
+  padding: .5em;
 }
 
-button {
+.btn-start,
+.word-option {
   padding: 1em 2em;
   background-color: var(--chalkboard);
-  border: 2px solid var(--bold-yellow);
+  border: 2px solid var(--yellow);
   color: #fff;
   margin-top: 1em;
   text-transform: uppercase;
@@ -62,7 +67,7 @@ button:focus {
 
 @media (hover: hover) {
   button:hover {
-    background-color: var(--bold-yellow);
+    background-color: var(--yellow);
     cursor: pointer;
   }
 }
@@ -76,8 +81,21 @@ input {
   border: none;
   border-bottom: 2px solid #fff;
   padding: 1em;
-  margin-top: 2em;
   color: #fff;
+}
+
+label {
+  margin-top: 2em;
+}
+
+.name-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-start {
+  margin-top: 2em;
 }
 
 .word-wrapper {
@@ -97,7 +115,7 @@ input {
   width: 3em;
   height: 3em;
   border-radius: 50%;
-  background-color: var(--bold-yellow);
+  background-color: var(--yellow);
   padding: 2em;
   display: flex;
   align-items: center;
@@ -111,8 +129,8 @@ input {
   font-size: 3.2em;
 }
 
-.hide {
-  visibility: hidden;
+.hidden {
+  display: none;
 }
 
 * {
@@ -124,8 +142,51 @@ input {
   width: 100%;
 }
 
-.active {
-  top: 0;
-  left: 0;
-  transition: all 500ms ease-in-out;
+.categories > button {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.categories > button img {
+  max-width: 100%;
+}
+
+.animals {
+  background-color: var(--blue);
+}
+
+.veggies {
+  background-color: var(--pink);
+}
+
+.fruits {
+  background-color: var(--green);
+}
+
+.categories {
+  display: flex;
+  justify-content: space-between;
+}
+
+path.mouth {
+  animation: open-mouth 500ms infinite;
+  transform-origin: 57% 0%;
+  transform-box: fill-box;
+}
+
+@keyframes open-mouth {
+  0% {
+      transform: rotate(-20deg);
+  }
+  50% {
+      transform: rotate(10deg);
+      transform: scale(1.2)
+  }
+  100% {
+      transform: rotate(-10deg);
+      transform: scale(2)
+  }
 }
