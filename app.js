@@ -409,8 +409,12 @@ function startGame(el) {
 function playAgain() {
   game = { ...newGame }
   game.wordList = beginnerList[lastCategory]
-
+  
   newWord()
+}
+
+function next() {
+  console.log('to do...')
 }
 
 function addClass(id, newClass) {
