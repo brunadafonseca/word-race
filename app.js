@@ -5,7 +5,7 @@ if ('serviceWorker' in navigator) {
            .catch((err) => { console.log(err.message) })
 }
 
-const beginnerList = {
+const beginner = {
   animals: [
     {
       en: 'cow',
@@ -94,7 +94,7 @@ const beginnerList = {
     }
   ]
 }
-const intermediaryList = {
+const intermediary = {
   random: [
     {
       en: 'flower',
@@ -183,7 +183,7 @@ const intermediaryList = {
     }
   ]
 }
-const advancedList = {
+const advanced = {
   random: [
     {
       en: 'window',
@@ -374,6 +374,7 @@ function newWord() {
   if (!game.wordList.length) {
     if (isWinner()) {
       showSection('game-results')
+      addClass('loser', 'hidden')
       removeClass('winner', 'hidden')
       updateUserPoints()
       
@@ -383,8 +384,8 @@ function newWord() {
     }
 
     showSection('game-results')
+    addClass('winner', 'hidden')
     removeClass('loser', 'hidden')
-    
     return 
   } 
   
@@ -400,7 +401,10 @@ function isWinner() {
 
 function startGame(el) {
   game = { ...newGame }
-  game.wordList = beginnerList[el.value]
+
+  const level = el.classList[0]
+  game.wordList = level[el.value]
+  console.log(game.wordList)
   lastCategory = el.value
   
   newWord()

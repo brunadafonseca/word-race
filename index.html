@@ -13,6 +13,7 @@
     <a href="" onclick="showCategories()">Word Race</a>
     <div id="profile" onclick="showProfile()"></div>
   </nav>
+  
   <main class="container">
     <section id="intro">
       <p>The game is very easy. We'll give you a word in english and you have 5 seconds to guess the right translation in portuguese.</p>
@@ -22,6 +23,7 @@
         <label for="name">How would you like to be called?</label>
         <input type="text" id="name" autofocus>
       </div>
+      
       <button class="btn btn-start" onclick="registerUser()">I'm ready!</button>
     </section>
     
@@ -46,27 +48,27 @@
       <section id="beginner">
         <h2>Beginner:</h2>
         <ul class="categories">
-          <li><button class="animals" onclick="startGame(this)" value="animals"><img src="./assets/images/cat-128.png" alt=""></button></li>
-          <li><button class="veggies" onclick="startGame(this)" value="veggies"><img src="./assets/images/broccoli-128.png" alt=""></button></li>
-          <li><button class="fruits" onclick="startGame(this)" value="fruits"><img src="./assets/images/strawberry-128.png" alt=""></button></li>
+          <li><button class="beginner animals" onclick="startGame(this)" value="animals"><img src="./assets/images/cat-128.png" alt=""></button></li>
+          <li><button class="beginner veggies" onclick="startGame(this)" value="veggies"><img src="./assets/images/broccoli-128.png" alt=""></button></li>
+          <li><button class="beginner fruits" onclick="startGame(this)" value="fruits"><img src="./assets/images/strawberry-128.png" alt=""></button></li>
         </ul>
       </section>
       
       <section id="intermediary">
         <h2>Intermediary</h2>
         <ul class="categories">
-          <li><button class="colors" onclick="startGame(this)" value="colors"><img src="./assets/images/rgb.png" alt=""></button></li>
-          <li><button class="clothing" onclick="startGame(this)" value="clothing"><img src="./assets/images/shirt.png" alt=""></button></li>
-          <li><button class="random" onclick="startGame(this)" value="random"><img src="./assets/images/shuffle.png" alt=""></button></li>
+          <li><button class="intermediary clothing" onclick="startGame(this)" value="clothing"><img src="./assets/images/shirt.png" alt=""></button></li>
+          <li><button class="intermediary colors" onclick="startGame(this)" value="colors"><img src="./assets/images/rgb.png" alt=""></button></li>
+          <li><button class="intermediary random" onclick="startGame(this)" value="random"><img src="./assets/images/shuffle.png" alt=""></button></li>
        </ul>
       </section>
       
       <section id="advanced">
         <h2>Advanced: </h2>
         <ul class="categories">
-          <li><button class="random" onclick="startGame(this)" value="random"><img src="./assets/images/shuffle.png" alt=""></button></li>
-          <li><button class="body" onclick="startGame(this)" value="body"><img src="./assets/images/girl.png" alt=""></button></li>
-          <li><button class="objects" onclick="startGame(this)" value="objects"><img src="./assets/images/books.png" alt=""></button></li>
+          <li><button class="advanced random" onclick="startGame(this)" value="random"><img src="./assets/images/shuffle.png" alt=""></button></li>
+          <li><button class="advanced body" onclick="startGame(this)" value="body"><img src="./assets/images/girl.png" alt=""></button></li>
+          <li><button class="advanced objects" onclick="startGame(this)" value="objects"><img src="./assets/images/books.png" alt=""></button></li>
         </ul>
       </section>
     </section>
