@@ -402,9 +402,20 @@ function isWinner() {
 function startGame(el) {
   game = { ...newGame }
 
-  const level = el.classList[0]
-  game.wordList = level[el.value]
-  console.log(game.wordList)
+  switch (el.classList[0].toString()) {
+    case 'beginner':
+      game.wordList = beginner[el.value]
+    
+    case 'intermediary':
+      game.wordList = intermediary[el.value]
+    
+    case 'advanced':
+      game.wordList = advanced[el.value]
+    
+      default:
+      break;
+  }
+
   lastCategory = el.value
   
   newWord()
@@ -415,10 +426,6 @@ function playAgain() {
   game.wordList = beginnerList[lastCategory]
   
   newWord()
-}
-
-function next() {
-  console.log('to do...')
 }
 
 function addClass(id, newClass) {
