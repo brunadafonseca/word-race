@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Walter Turncoat';
   src: url('../fonts/WalterTurncoat-Regular.ttf');
+  font-display: swap;
 }
 
 :root {
@@ -12,6 +13,10 @@
   --green: #06D6A0;
 }
 
+p {
+  margin: 0;
+}
+
 body {
   background-color: var(--chalkboard);
   color: #fff;
@@ -20,18 +25,12 @@ body {
   padding: 0;
 }
 
-header {
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 1px 1px 10px #101613;
-  padding: 0 1em;
-}
-
-.header-title {
-  font-size: 1em;
-  text-transform: uppercase;
-  color: #fff;
+  box-shadow: 1px 1px 10px #234032;
+  padding: 1em;
 }
 
 .container {
@@ -50,16 +49,6 @@ button {
   box-sizing: border-box;
   padding: .5em;
 }
-
-.btn-start,
-.word-option {
-  padding: 1em 2em;
-  background-color: var(--chalkboard);
-  border: 2px solid var(--yellow);
-  color: #fff;
-  margin-top: 1em;
-  text-transform: uppercase;
-}
   
 button:focus {
   outline: none;
@@ -72,10 +61,6 @@ button:focus {
   }
 }
 
-input:focus {
-  outline: none;
-}
-
 input {
   background-color: var(--chalkboard);
   border: none;
@@ -84,18 +69,37 @@ input {
   color: #fff;
 }
 
+input:focus {
+  outline: none;
+}
+
 label {
   margin-top: 2em;
+}
+
+.btn,
+.word-option {
+  padding: 1em 2em;
+  background-color: var(--chalkboard);
+  border: 2px solid var(--yellow);
+  color: #fff;
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
+.btn-start {
+  margin-top: 2em;
+}
+
+.word-option {
+  display: block;
+  width: 100%;
 }
 
 .name-input {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.btn-start {
-  margin-top: 2em;
 }
 
 .word-wrapper {
@@ -137,33 +141,42 @@ label {
   user-select: none;
 }
 
-.word-option {
-  display: block;
-  width: 100%;
+#options {
+  margin-top: 3rem;
 }
 
-.categories > button {
+.categories > li {
   width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
 }
 
-.categories > button img {
+li > button {
+  border: none;
+}
+button > img {
   max-width: 100%;
 }
 
-.animals {
+.animals,
+.colors,
+.objects {
   background-color: var(--blue);
 }
 
-.veggies {
+.veggies,
+.clothing {
   background-color: var(--pink);
 }
 
-.fruits {
+.fruits,
+.body {
   background-color: var(--green);
+}
+
+.random {
+  background-color: var(--dark-blue);
 }
 
 .categories {
@@ -189,4 +202,66 @@ path.mouth {
       transform: rotate(-10deg);
       transform: scale(2)
   }
+}
+
+.left-ear {
+  animation: move-left-ear 2s infinite;
+  transform-origin: top-left;
+  transform-box: fill-box;
+}
+
+.right-ear {
+  animation: move-right-ear 2s infinite;
+  transform-origin: top-left;
+  transform-box: fill-box;
+}
+
+@keyframes move-left-ear {
+  50% {
+    transform: translate(-1.5em, 1.5em)
+  }
+}
+
+@keyframes move-right-ear {
+  50% {
+    transform: translate(1.5em, 1.5em)
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+#game-categories > * {
+  margin-bottom: 3em;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+}
+
+.winner > p,
+.loser > p {
+  margin-bottom: 2em;
+}
+
+svg {
+  width: 80%;
+  margin: 2em 0;
+}
+
+.score {
+  font-size: 1.3em;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+#game {
+  width: 70%;
 }

@@ -1,12 +1,11 @@
 if ('serviceWorker' in navigator) {
-  console.log('serviceworker in navigator')
   navigator.serviceWorker
            .register('service-worker.js')
            .then(() => { console.log('Service Worker Registered') })
            .catch((err) => { console.log(err.message) })
 }
 
-const list = {
+const beginnerList = {
   animals: [
     {
       en: 'cow',
@@ -47,8 +46,8 @@ const list = {
       ]
     },
     {
-      en: 'carrot',
-      pt: 'cenoura',
+      en: 'cabbage',
+      pt: 'alface',
       options: [
         'alface',
         'cenoura',
@@ -56,11 +55,11 @@ const list = {
       ]
     },
     {
-      en: 'carrot',
-      pt: 'cenoura',
+      en: 'cucumber',
+      pt: 'pepino',
       options: [
         'alface',
-        'cenoura',
+        'pepino',
         'acelga'
       ]
     },
@@ -76,8 +75,8 @@ const list = {
       ]
     },
     {
-      en: 'orange',
-      pt: 'laranja',
+      en: 'cherry',
+      pt: 'cereja',
       options: [
         'abacate',
         'laranja',
@@ -85,12 +84,190 @@ const list = {
       ]
     },
     {
-      en: 'orange',
-      pt: 'laranja',
+      en: 'avocado',
+      pt: 'abacate',
       options: [
         'abacate',
         'laranja',
         'cereja'
+      ]
+    }
+  ]
+}
+const intermediaryList = {
+  random: [
+    {
+      en: 'flower',
+      pt: 'flor',
+      options: [
+        'flor',
+        'folha',
+        'terra'
+      ]
+    },
+    {
+      en: 'fridge',
+      pt: 'geladeira',
+      options: [
+        'cadeira',
+        'frigideira',
+        'geladeira'
+      ]
+    },
+    {
+      en: 'table',
+      pt: 'mesa',
+      options: [
+        'almofada',
+        'pano',
+        'mesa'
+      ]
+    }
+  ],
+  colors: [
+    {
+      en: 'blue',
+      pt: 'azul',
+      options: [
+        'amarelo',
+        'azul',
+        'verde'
+      ]
+    },
+    {
+      en: 'green',
+      pt: 'verde',
+      options: [
+        'amarelo',
+        'branco',
+        'verde'
+      ]
+    },
+    {
+      en: 'black',
+      pt: 'preto',
+      options: [
+        'branco',
+        'preto',
+        'marrom'
+      ]
+    },
+  ],
+  clothing: [
+    {
+      en: 't-shirt',
+      pt: 'camiseta',
+      options: [
+        'camiseta',
+        'vestido',
+        'saia'
+      ]
+    },
+    {
+      en: 'skirt',
+      pt: 'saia',
+      options: [
+        'vestido',
+        'saia',
+        'sapato'
+      ]
+    },
+    {
+      en: 'bag',
+      pt: 'bolsa',
+      options: [
+        'sapato',
+        'blusa',
+        'bolsa'
+      ]
+    }
+  ]
+}
+const advancedList = {
+  random: [
+    {
+      en: 'window',
+      pt: 'janela',
+      options: [
+        'planta',
+        'vidro',
+        'janela'
+      ]
+    },
+    {
+      en: 'wall',
+      pt: 'parede',
+      options: [
+        'parede',
+        'telhado',
+        'porta'
+      ]
+    },
+    {
+      en: 'roof',
+      pt: 'telhado',
+      options: [
+        'janela',
+        'porta',
+        'telhado'
+      ]
+    }
+  ],
+  objects: [
+    {
+      en: 'pen',
+      pt: 'caneta',
+      options: [
+        'papel',
+        'caneta',
+        'garrafa'
+      ]
+    },
+    {
+      en: 'bottle',
+      pt: 'garrafa',
+      options: [
+        'vidro',
+        'vaso',
+        'garrafa'
+      ]
+    },
+    {
+      en: 'keyboard',
+      pt: 'teclado',
+      options: [
+        'teclado',
+        'almofada',
+        'planta'
+      ]
+    },
+  ],
+  body: [
+    {
+      en: 'leg',
+      pt: 'perna',
+      options: [
+        'perna',
+        'olho',
+        'nariz'
+      ]
+    },
+    {
+      en: 'ear',
+      pt: 'orelha',
+      options: [
+        'olho',
+        'orelha',
+        'boca'
+      ]
+    },
+    {
+      en: 'finger',
+      pt: 'dedo',
+      options: [
+        'boca',
+        'dedo',
+        'unha'
       ]
     }
   ]
@@ -107,27 +284,24 @@ const newGame = {
 
 let game = { ...newGame }
 let user = getUser() || {}
+let lastCategory = ''
+
 
 // user related
 
-if (!!user.name) {
-  addClass('intro', 'hidden')
-  removeClass('game-categories', 'hidden')
-  const p = document.createElement('p')
-  p.innerHTML = user.name
-  document.getElementById('profile').appendChild(p)
-}
-
-function registerUser(e) {
-  localStorage.removeItem('WordRaceUser')
-  user.name = e.target.value
-  user.level = 'beginner'
+function registerUser() {
+  const input = document.getElementById('name')
+  user.name = input.value
+  user.points = 0
+  
   const newUser = JSON.stringify(user)
   localStorage.setItem('WordRaceUser', newUser)
+  
+  showCategories()
 }
 
-function updateUserLevel(l) {
-  user.level = l
+function updateUserPoints() {
+  user.points = user.points + 10
   const updatedUser = JSON.stringify(user)
   
   localStorage.setItem('WordRaceUser', updatedUser)
@@ -136,6 +310,7 @@ function updateUserLevel(l) {
 function getUser() {
   return JSON.parse(localStorage.getItem('WordRaceUser'))
 }
+
 
 // game related
 
@@ -149,12 +324,11 @@ function setNewWord() {
 
   const options = game.word.options
   const btns = document.querySelectorAll('.word-option')
-  btns[0].innerHTML = options[0]
-  btns[1].innerHTML = options[1]
-  btns[2].innerHTML = options[2]
-  btns[0].setAttribute('value', options[0])
-  btns[1].setAttribute('value', options[1])
-  btns[2].setAttribute('value', options[2])
+
+  for (i = 0; i < btns.length; i++) {
+    btns[i].innerHTML = options[i]
+    btns[i].setAttribute('value', options[i])
+  }
 }
 
 function setTimer() {
@@ -169,7 +343,7 @@ function startTimer() {
 function timer() {
   game.seconds = game.seconds - 1
     if (game.seconds <= 0) {
-      startGame()
+      newWord()
     }
   document.getElementById('timer').innerHTML = game.seconds;
 }
@@ -178,31 +352,44 @@ function checkWord(el) {
   if (game.word.pt === el.value.toString()) {
     game.points = game.points + 1
   }
+  const p = document.getElementById('user-points')
+  p.innerHTML = game.points
 
-  startGame()
+  newWord()
 }
 
-function startGame() {
+function showCategories() {
+  if (!user.name) {
+    return
+  }
+
+  clearInterval(game.timerThread)
+  
+  showSection('game-categories')
+}
+
+function newWord() {
   clearInterval(game.timerThread)
   
   if (!game.wordList.length) {
     if (isWinner()) {
-      addClass('game', 'hidden')
-      removeClass('game-results', 'hidden')
+      showSection('game-results')
       removeClass('winner', 'hidden')
+      updateUserPoints()
+      
       game = { ...newGame }
+      
       return
     }
 
-    addClass('game', 'hidden')
-    removeClass('game-results', 'hidden')
+    showSection('game-results')
     removeClass('loser', 'hidden')
+    
     return 
   } 
   
   setNewWord()
-  addClass('game-categories', 'hidden')
-  removeClass('game', 'hidden')
+  showSection('game')
   setTimer()
   startTimer()
 }
@@ -211,22 +398,20 @@ function isWinner() {
   return game.points === 3
 }
 
-function play(el) {
+function startGame(el) {
   game = { ...newGame }
-  game.wordList = list[el.value]
-  startGame()
+  game.wordList = beginnerList[el.value]
+  lastCategory = el.value
+  
+  newWord()
 }
 
-const name = document.getElementById('name')
-name.addEventListener('keypress', (e) => {
-  const key = e.which || e.keyCode
-  
-  if (key === 13) {
-    registerUser(e)
-    addClass('intro', 'hidden')
-    removeClass('game-categories', 'hidden')
-  }
-})
+function playAgain() {
+  game = { ...newGame }
+  game.wordList = beginnerList[lastCategory]
+
+  newWord()
+}
 
 function addClass(id, newClass) {
   const element = document.getElementById(id)
@@ -238,3 +423,29 @@ function removeClass(id, oldClass) {
   element.classList.remove(oldClass)
 }
 
+function showSection(show) {
+  const allIds = ['intro', 'game', 'game-categories', 'game-results']
+  const hide = allIds.filter(id => id !== show)
+  hide.map(id => {
+    addClass(id, 'hidden')
+  })
+
+  removeClass(show, 'hidden')
+}
+
+if (!!user.name) {
+  showSection('game-categories')
+  const p = document.createElement('p')
+  p.innerHTML = user.name
+  document.getElementById('profile').appendChild(p)
+}
+
+const nameInput = document.getElementById('name')
+nameInput.addEventListener('keypress', (e) => {
+  const key = e.which || e.keyCode
+  
+  if (key === 13) {
+    registerUser(e)
+    showSection('game-categories')
+  }
+})
