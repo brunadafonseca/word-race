@@ -189,10 +189,15 @@ function startGame() {
     if (isWinner()) {
       addClass('game', 'hidden')
       removeClass('game-results', 'hidden')
-      window.alert('you won! your score is: ' + game.points)
+      removeClass('winner', 'hidden')
       game = { ...newGame }
       return
     }
+
+    addClass('game', 'hidden')
+    removeClass('game-results', 'hidden')
+    removeClass('loser', 'hidden')
+    return 
   } 
   
   setNewWord()
