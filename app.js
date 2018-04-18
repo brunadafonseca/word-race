@@ -284,7 +284,7 @@ const newGame = {
 
 let game = { ...newGame }
 let user = getUser() || {}
-let lastCategory = ''
+let lastList = []
 
 
 // user related
@@ -420,6 +420,7 @@ function startGame(el) {
       break;
   }
 
+  lastList = [...game.wordList]
   lastCategory = el.value
   
   newWord()
@@ -427,7 +428,7 @@ function startGame(el) {
 
 function playAgain() {
   game = { ...newGame }
-  game.wordList = [...beginnerList[lastCategory]]
+  game.wordList = lastList
   
   newWord()
 }
